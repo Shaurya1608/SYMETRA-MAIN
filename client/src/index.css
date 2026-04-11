@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@1,900&family=Orbitron:wght@400..900&family=Space+Grotesk:wght@300..700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-deep: #0B1120;
+  --color-simetra: #0E7D74;
+  --color-intelligence: #1E3A5F;
+  --color-signal: #14B8A6;
+  --color-precision: #C8A96E;
+  --color-steel: #4A5568;
+  --color-arctic: #EEF2F7;
+
+  --font-orbitron: "Orbitron", sans-serif;
+  --font-space: "Space Grotesk", sans-serif;
+  --font-anton: "Anton", sans-serif;
+  --font-archivo: "Archivo", sans-serif;
+}
+
+html {
+  height: auto;
+  overflow-y: auto;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+@layer base {
+  body {
+    @apply bg-deep text-arctic antialiased min-h-screen;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+  }
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Brutalist Viewport Border */
+.viewport-border {
+  @apply fixed inset-1 border-2 border-white/20 pointer-events-none z-50 rounded-[30px];
+}
+
+/* Custom Scrollbar Shadow-like */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.1);
+  color: transparent;
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
