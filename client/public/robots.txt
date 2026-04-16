@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://simetra-solutions.vercel.app/sitemap.xml

@@ -1,19 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@1,900&family=Orbitron:wght@400..900&family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-deep: #0B1120;
-  --color-simetra: #0E7D74;
-  --color-intelligence: #1E3A5F;
-  --color-signal: #14B8A6;
-  --color-precision: #C8A96E;
-  --color-steel: #4A5568;
-  --color-arctic: #EEF2F7;
+  /* Brand Typography */
+  --font-sitka: "Sitka Text", "Sitka", "Georgia", serif;
+  --font-poppins: "Poppins", sans-serif;
 
-  --font-orbitron: "Orbitron", sans-serif;
-  --font-space: "Space Grotesk", sans-serif;
-  --font-anton: "Anton", sans-serif;
-  --font-archivo: "Archivo", sans-serif;
+  /* Alias legacy fonts to brand fonts for seamless transition */
+  --font-orbitron: var(--font-poppins);
+  --font-space: var(--font-poppins);
+  --font-anton: var(--font-sitka);
+  --font-archivo: var(--font-sitka);
+
+  /* Brand Palette */
+  --color-brand-deep: #0B1120;
+  --color-brand-blue: #1E3A5F;
+  --color-brand-gold: #C8A96E;
+  --color-brand-teal: #14B8A6; /* Signal Teal */
+  --color-brand-signal: #14B8A6; /* Alias for teal to ensure backward compatibility in code */
+  --color-brand-steel: #4A5568;
+  --color-brand-arctic: #EEF2F7;
 }
 
 html {
@@ -43,8 +49,8 @@ html.lenis, html.lenis body {
 
 @layer base {
   body {
-    @apply bg-deep text-arctic antialiased min-h-screen;
-    font-family: "Space Grotesk", system-ui, sans-serif;
+    @apply bg-brand-deep text-[#EAEAEA] antialiased min-h-screen;
+    font-family: var(--font-poppins);
   }
 }
 
@@ -55,7 +61,7 @@ html.lenis, html.lenis body {
 
 /* Brutalist Viewport Border */
 .viewport-border {
-  @apply fixed inset-1 border-2 border-white/20 pointer-events-none z-50 rounded-[30px];
+  @apply fixed inset-1 border-2 border-white/10 pointer-events-none z-50 rounded-[30px];
 }
 
 /* Custom Scrollbar Shadow-like */

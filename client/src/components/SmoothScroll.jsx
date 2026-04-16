@@ -21,9 +21,11 @@ export function SmoothScroll({ children }) {
     }
 
     requestAnimationFrame(raf);
+    window.lenis = lenis;
 
     return () => {
       lenis.destroy();
+      delete window.lenis;
     };
   }, []);
 

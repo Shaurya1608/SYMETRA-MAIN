@@ -1,110 +1,162 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import product0 from '../assets/products/vastech-product-0.avif';
+import product1 from '../assets/products/vasttecproduct 1.avif';
+import product2 from '../assets/products/vastech-product-2.avif';
+import product3 from '../assets/products/vastechh-product-3.avif';
 
-const PRODUCTS = [
+const products = [
   {
-    id: '01',
-    name: "V-Grip Haptic",
-    category: "Control Systems",
-    image: "/src/assets/products/vastech-product-0.avif",
-    desc: "Advanced haptic feedback controller designed for sub-millimeter precision in industrial simulations."
+    id: "01",
+    name: "Sentinel X-1",
+    tagline: "Flagship Tactical Framework",
+    desc: "A hardware-agnostic framework designed for high-fidelity safety simulations.",
+    image: product0,
+    features: ["<20ms Latency", "Spatial Tracking"]
   },
   {
-    id: '02',
-    name: "Aero Vision V4",
-    category: "Optics / VR",
-    image: "/src/assets/products/vasttecproduct 1.avif",
-    desc: "Ultra-wide field-of-view VR headset with 8K clarity for maximum immersion in hazardous environments."
+    id: "02",
+    name: "Neural Link",
+    tagline: "Software Intelligence Engine",
+    desc: "Orchestrates complex multi-user simulations with real-time feedback loops.",
+    image: product1,
+    features: ["Multi-user Sync", "Cloud Processing"]
   },
   {
-    id: '03',
-    name: "Logic Gateway",
-    category: "Infrastructure",
-    image: "/src/assets/products/vastech-product-2.avif",
-    desc: "High-speed data processing hub bridging physical sensors with digital twins in real-time."
+    id: "03",
+    name: "V-Field Kit",
+    tagline: "Rapid Deployment Unit",
+    desc: "A portable, ruggedized VR solution for on-site training in any environment.",
+    image: product2,
+    features: ["Rugged Design", "Battery Powered"]
   },
   {
-    id: '04',
-    name: "Industrial Core",
-    category: "Simulators",
-    image: "/src/assets/products/vastechh-product-3.avif",
-    desc: "The backbone of Vastech simulations, providing modular hardware configurations for every sector."
+    id: "04",
+    name: "Command Center",
+    tagline: "Centralized Ops Platform",
+    desc: "Monitor trainees, manage libraries, and generate compliance reports.",
+    image: product3,
+    features: ["Fleet Management", "Auto-Reporting"]
   }
 ];
 
-export function ProductSection({ opacity, leftY, rightY }) {
+export function ProductSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
+
   return (
-    <motion.section 
-      id="products" 
-      style={{ opacity }}
-      className="relative w-full pt-20 pb-16 px-6 md:px-12 lg:px-24 overflow-hidden"
-    >
+    <section className="relative w-full h-screen bg-brand-arctic pt-16 md:pt-32 pb-12 md:pb-16 px-6 lg:px-24 overflow-hidden flex flex-col items-center justify-start">
+      
+      {/* Background Brand Watermark */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
+          <h2 className="text-[6rem] md:text-[12rem] font-anton text-brand-deep/[0.02] leading-none uppercase tracking-tighter select-none">
+            PRODUCTS
+          </h2>
+      </div>
 
-
-      <div className="relative z-10 max-w-[1920px] mx-auto lg:grid lg:grid-cols-12 lg:gap-16 items-start">
-        {/* Header - Left Column */}
-        <motion.div style={{ y: leftY }} className="lg:col-span-5 mb-12 lg:mb-0 pr-8">
-          <div className="space-y-4">
-            <span className="text-[10px] md:text-[11px] font-archivo tracking-[0.6em] text-simetra uppercase block">Product Catalog</span>
-            <h2 className="text-6xl md:text-7xl lg:text-[7rem] font-anton tracking-tighter text-black uppercase leading-none">
-              PRODUCTS
+      <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col items-center justify-start">
+        
+        {/* Header Title */}
+        <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-6 md:mb-16"
+        >
+            <span className="text-[8px] md:text-[9px] font-archivo tracking-[0.8em] text-brand-teal uppercase block mb-2">Our Technology</span>
+            <h2 className="text-3xl md:text-5xl font-anton text-brand-deep uppercase tracking-tighter leading-none">
+                PRODUCT LINEUP
             </h2>
-          </div>
-          <p className="max-w-sm text-sm md:text-base font-archivo text-black/60 leading-relaxed italic mt-8 border-l border-black/20 pl-6">
-            Engineered for reliability, our hardware ecosystem provides the physical foundation for the world's most advanced industrial simulations.
-          </p>
         </motion.div>
 
-        {/* Product Grid - Right Column */}
-        <motion.div style={{ y: rightY }} className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 pl-0 lg:pl-12">
-          {PRODUCTS.map((product, index) => (
-            <div
+        {/* Responsive Grid: 2x2 with tighter gaps */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-5"
+        >
+          {products.map((product) => (
+            <motion.div 
               key={product.id}
-              className="group relative border border-black/10 p-3 md:p-4 flex flex-col h-full hover:border-black/30 transition-colors duration-500 overflow-hidden"
+              variants={itemVariants}
             >
-              {/* Product ID Watermark */}
-              <span className="absolute top-2 right-3 text-xl font-anton text-arctic/5 select-none italic group-hover:text-signal/20 transition-colors">
-                {product.id}
-              </span>
+              <Link
+                to={`/product/${product.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-full h-full bg-white p-3 md:p-5 rounded-xl md:rounded-2xl border border-brand-teal/[0.03] shadow-[0_10px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.06)] transition-shadow duration-700 flex flex-col lg:flex-row gap-4 lg:gap-6 items-center lg:items-start"
+              >
+                {/* Image Aspect */}
+                <div className="w-full lg:w-[35%] aspect-square md:aspect-video overflow-hidden rounded-lg md:rounded-xl flex-shrink-0">
+                  <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-full object-cover transform-gpu will-change-transform group-hover:scale-110 transition-transform duration-1000"
+                  />
+                </div>
 
-              {/* Image Container */}
-              <div className="relative aspect-[21/9] mb-4 overflow-hidden bg-deep rounded-sm shadow-inner group-hover:shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] transition-shadow duration-700">
-                 <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
-                 />
-                 <div className="absolute inset-0 bg-gradient-to-t from-deep to-transparent opacity-60" />
-              </div>
-
-              {/* Meta */}
-              <div className="mt-auto space-y-1.5">
-                <div>
-                    <span className="text-[7px] font-archivo tracking-[0.3em] text-precision uppercase block mb-0.5">
-                        {product.category}
-                    </span>
-                    <h3 className="text-lg font-anton text-black uppercase tracking-tight leading-none">
+                {/* Text Aspect */}
+                <div className="w-full lg:w-[65%] space-y-1 md:space-y-2">
+                    <div className="space-y-0 text-left">
+                      <span className="text-[7px] md:text-[8px] font-orbitron tracking-widest text-brand-teal uppercase block">{product.id}</span>
+                      <h3 
+                        className="text-sm md:text-xl font-bold text-brand-deep uppercase tracking-tighter leading-none"
+                        style={{ fontFamily: "'Antonio', sans-serif" }}
+                      >
                         {product.name}
-                    </h3>
-                </div>
-                
-                <p className="text-[9px] font-archivo text-black/60 leading-snug line-clamp-2">
-                    {product.desc}
-                </p>
+                      </h3>
+                    </div>
+                    
+                    {/* content for desktop/large screens */}
+                    <div className="hidden lg:block space-y-3">
+                      <p className="text-brand-steel text-[10px] xl:text-[11px] font-archivo leading-relaxed line-clamp-2 opacity-70">
+                        {product.desc}
+                      </p>
 
-                <div className="pt-3 mt-2 border-t border-black/10 flex items-center justify-between group/btn cursor-pointer">
-                    <span className="text-[8px] font-archivo font-bold tracking-[0.2em] text-black/40 uppercase group-hover/btn:text-simetra transition-colors">
-                        TECHNICAL SPECS
-                    </span>
-                    <svg width="12" height="12" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-arctic opacity-30 group-hover/btn:opacity-100 group-hover/btn:text-signal group-hover/btn:translate-x-1 transition-all">
-                        <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor"></path>
-                    </svg>
+                      <div className="flex flex-wrap gap-1.5">
+                          {product.features.map((feature, i) => (
+                              <span key={i} className="px-2 py-0.5 bg-brand-deep/[0.03] text-brand-deep/50 text-[8px] font-archivo uppercase tracking-widest rounded-full">
+                                  {feature}
+                              </span>
+                          ))}
+                      </div>
+
+                      <div className="pt-1">
+                          <button className="text-[9px] font-orbitron tracking-widest text-brand-teal uppercase border-b border-brand-teal/20 group-hover:border-brand-teal transition-all flex items-center gap-1.5 pointer-events-none">
+                            Details 
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="transition-transform group-hover:translate-x-1">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </button>
+                      </div>
+                    </div>
                 </div>
-              </div>
-            </div>
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }

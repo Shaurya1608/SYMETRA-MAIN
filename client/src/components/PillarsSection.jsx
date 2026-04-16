@@ -30,103 +30,79 @@ export function PillarsSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.1,
         delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, scale: 0.95, y: 30 },
     visible: { 
       opacity: 1, 
+      scale: 1,
       y: 0,
       transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   return (
-    <section className="relative w-full bg-[#050B14] py-16 px-6 md:px-12 lg:px-24 border-t border-white/5 overflow-hidden">
-      {/* Background Decorative Grid */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.02] flex justify-between px-[10%]">
+    <section className="relative w-full h-screen bg-brand-deep px-6 overflow-hidden flex flex-col justify-center">
+      {/* Background Decorative Pattern */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.05] flex justify-between px-[10%]">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="h-full w-px bg-white" />
+          <div key={i} className="h-full w-px bg-white/20" />
         ))}
       </div>
 
-      <div className="relative z-10 max-w-[1920px] mx-auto">
+      <div className="relative z-10 max-w-5xl mx-auto w-full">
+        
+        {/* Header (Optional, for context) */}
+        <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-8 md:mb-12"
+        >
+            <span className="text-[10px] font-archivo tracking-[0.8em] text-white/30 uppercase block mb-2">Foundation</span>
+            <h2 className="text-2xl md:text-3xl font-anton text-white uppercase tracking-tighter">Strategic Pillars</h2>
+        </motion.div>
+
+        {/* 2x2 Grid Layout */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0"
+          className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5"
         >
           {pillars.map((pillar, index) => (
             <motion.div 
               key={pillar.id}
               variants={itemVariants}
-              className={`group relative p-8 md:p-10 lg:p-12 flex flex-col items-center text-center 
-                ${index !== pillars.length - 1 ? 'lg:border-r border-white/10' : ''} 
-                ${index % 2 === 0 ? 'md:border-r lg:border-r-0' : ''}
-                ${index < 2 ? 'border-b md:border-b-0' : 'border-t md:border-t-0'}
-                border-white/5 lg:border-b-0 lg:border-t-0
-              `}
+              className="group relative bg-brand-deep p-8 md:p-10 lg:p-12 flex flex-col items-center text-center overflow-hidden transition-all duration-500"
             >
-              {/* Highlight Background Glow */}
-              <div className="absolute inset-0 bg-white/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              {/* Subtle hover effect background */}
+              <div className="absolute inset-0 bg-brand-teal/[0.05] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
               
-              {/* Vertical Scanning Line Animation */}
-              <motion.div 
-                initial={{ height: 0 }}
-                whileInView={{ height: "40%" }}
-                transition={{ duration: 1.5, delay: 0.5 + (index * 0.2) }}
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden lg:block"
-              />
-
-              <div className="relative z-10 space-y-4">
-                <span className="text-[10px] font-orbitron tracking-[0.5em] text-white/20 uppercase block mb-6">
-                  {pillar.id} // System
+              <div className="relative z-10 space-y-3">
+                <span className="text-[10px] font-orbitron tracking-[0.6em] text-brand-teal/40 uppercase block group-hover:text-brand-teal transition-colors duration-500">
+                  {pillar.id}
                 </span>
                 
-                <h3 className="text-4xl md:text-5xl font-anton text-white uppercase tracking-tighter leading-none group-hover:text-white transition-colors duration-500">
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-anton text-white uppercase tracking-tighter leading-none transition-transform duration-500 group-hover:scale-105">
                   {pillar.title}
                 </h3>
                 
-                <p className="text-xs md:text-sm font-archivo tracking-[0.2em] text-white/40 uppercase pt-2 group-hover:text-white/60 transition-colors duration-500">
+                <p className="text-[10px] md:text-xs font-archivo tracking-[0.3em] text-white/40 uppercase group-hover:text-white/60 transition-colors duration-500">
                   {pillar.subtitle}
                 </p>
               </div>
-
-              {/* Bottom Decorative Dash */}
-              <div className="mt-12 w-8 h-[1px] bg-white/10 group-hover:w-16 group-hover:bg-white/40 transition-all duration-700 mx-auto" />
             </motion.div>
           ))}
         </motion.div>
 
-        {/* CINEMATIC TRANSITION TO PRODUCTS */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="mt-32 pt-24 border-t border-white/5 text-center flex flex-col items-center"
-        >
-          <span className="text-[10px] font-archivo tracking-[0.8em] text-white/20 uppercase block mb-8">Next Chapter</span>
-          <div 
-            className="group relative inline-block bg-[#F5F5DC] text-[#050B14] px-16 py-10 text-6xl md:text-8xl lg:text-[9rem] font-anton uppercase tracking-tighter leading-none transition-all duration-700 hover:tracking-normal cursor-default shadow-2xl"
-          >
-            <span className="relative z-10">Elite <br/> Hardware</span>
-            <div className="absolute -inset-x-12 -inset-y-4 bg-white/5 opacity-0 group-hover:opacity-100 transition-all duration-700 skew-x-[-12deg] z-0" />
-            
-            {/* Warp Lines */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none" />
-          </div>
-          
-          <div className="mt-16 flex items-center gap-6 opacity-30 group-hover:opacity-60 transition-opacity">
-            <div className="w-12 h-[1px] bg-white" />
-            <span className="text-[10px] font-archivo tracking-[0.4em] uppercase">Enter Master Catalog</span>
-            <div className="w-12 h-[1px] bg-white" />
-          </div>
-        </motion.div>
       </div>
     </section>
   );

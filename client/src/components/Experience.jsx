@@ -1,6 +1,42 @@
 import { Suspense, useRef, useEffect, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, Stage, Float, ContactShadows, useAnimations, OrbitControls } from '@react-three/drei'
+
+function AutoResetControls() {
+  const controlsRef = useRef();
+  const { camera } = useThree();
+
+  useEffect(() => {
+    let wasTop = window.scrollY < 50;
+    
+    const handleScroll = () => {
+      const isTop = window.scrollY < 50;
+      if (isTop && !wasTop) {
+        if (controlsRef.current) {
+          // Instantly reset rotation so the model faces front when returning to hero section
+          controlsRef.current.reset();
+        }
+      }
+      wasTop = isTop;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <OrbitControls 
+      ref={controlsRef}
+      enableZoom={false} 
+      enablePan={false} 
+      autoRotate={true} 
+      autoRotateSpeed={1.5}
+      minPolarAngle={Math.PI / 2.6}
+      maxPolarAngle={Math.PI / 2.6}
+      makeDefault 
+    />
+  );
+}
 
 function Model({ path, ...props }) {
   const { scene, animations } = useGLTF(path)
@@ -21,6 +57,8 @@ function Model({ path, ...props }) {
     </group>
   )
 }
+
+useGLTF.preload('/videos/apple-vision-pro-opt.glb');
 
 export function Experience() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024)
@@ -46,21 +84,15 @@ export function Experience() {
       
       <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 4.5], fov: 35 }} gl={{ alpha: true }}>
         <Suspense fallback={null}>
-            <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.2}>
-              <Model 
-                path="/videos/apple-vision-pro.glb" 
-                scale={isMobile ? 2.0 : 2.6} 
-                position={isMobile ? [0, -0.4, 0] : [0, -0.1, 0]} 
-                rotation={[0, 0, 0]} 
-              />
-            </Float>
-          <OrbitControls 
-            enableZoom={false} 
-            enablePan={false} 
-            autoRotate={true} 
-            autoRotateSpeed={1.5}
-            makeDefault 
-          />
+          <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.2}>
+            <Model 
+              path="/videos/apple-vision-pro-opt.glb" 
+              scale={isMobile ? 1.5 : 2.6} 
+              position={isMobile ? [0, -0.4, 0] : [0, -0.1, 0]} 
+              rotation={[0, -Math.PI / 2, 0]} 
+            />
+          </Float>
+          <AutoResetControls />
           <Stage intensity={1.2} environment="city" adjustCamera={false} center={false} />
           <ContactShadows 
               position={[0, -1.5, 0]} 
@@ -71,6 +103,7 @@ export function Experience() {
               color="#000000"
           />
         </Suspense>
+
       </Canvas>
     </div>
   )
