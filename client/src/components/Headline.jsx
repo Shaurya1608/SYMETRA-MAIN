@@ -44,7 +44,7 @@ export function Headline() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="text-[10vw] lg:text-[2.8vw] font-orbitron font-normal leading-[0.9] tracking-normal uppercase text-[#EAEAEA] flex flex-col"
+          className="text-[8.5vw] lg:text-[2.8vw] font-orbitron font-normal leading-[1.0] lg:leading-[0.9] tracking-normal uppercase text-[#EAEAEA] flex flex-col"
         >
           <motion.span variants={itemVariants} className="lg:pl-[3.5em]">IMMERSIVE</motion.span>
           <motion.span variants={itemVariants} className="pl-[4vw] lg:pl-[0em]">VR TRAINING</motion.span>

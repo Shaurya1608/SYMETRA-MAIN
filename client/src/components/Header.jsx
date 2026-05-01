@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import logo from '../assets/simmerta-logo/Simetra-Logo-01(1).png'
+import logo from '../assets/simmerta-logo/Simetra-Logo-02(1).png'
 
 export function Header({ theme = 'light', isOpen, toggleMenu }) {
   const isDark = theme === 'dark' && !isOpen; // Force dark (black icon) when menu is open on white bg

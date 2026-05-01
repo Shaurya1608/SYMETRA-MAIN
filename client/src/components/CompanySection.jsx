@@ -61,7 +61,7 @@ export function CompanySection() {
           >
             <div className="space-y-6 text-brand-steel font-poppins text-sm md:text-base leading-relaxed text-center lg:text-left">
               <p className="opacity-80">
-                At Symetra, we create next-generation training experiences using Virtual Reality, Mobile Simulations, and Interactive Learning Technologies. Our solutions allow trainees to practice real-world scenarios in a safe, scalable, and repeatable virtual environment — improving confidence, retention, and operational readiness.
+                At Simetra, we create next-generation training experiences using Virtual Reality, Mobile Simulations, and Interactive Learning Technologies. Our solutions allow trainees to practice real-world scenarios in a safe, scalable, and repeatable virtual environment — improving confidence, retention, and operational readiness.
               </p>
               <p className="opacity-80">
                 We build immersive VR, mobile, and simulation-based training solutions that help organizations improve workforce performance while reducing real-world risks, training costs, and onboarding time.

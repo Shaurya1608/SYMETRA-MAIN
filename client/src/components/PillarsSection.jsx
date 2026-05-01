@@ -66,7 +66,7 @@ export function PillarsSection() {
             className="text-center mb-8 md:mb-12"
         >
             <span className="text-[10px] font-archivo tracking-[0.8em] text-white/30 uppercase block mb-2">Why Choose Us</span>
-            <h2 className="text-2xl md:text-3xl font-anton text-white uppercase tracking-tighter">WHY CHOOSE SYMETRA?</h2>
+            <h2 className="text-2xl md:text-3xl font-anton text-white uppercase tracking-tighter">WHY CHOOSE SIMETRA?</h2>
         </motion.div>
 
         {/* 2x2 Grid Layout */}

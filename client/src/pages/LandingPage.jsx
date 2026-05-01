@@ -19,36 +19,9 @@ const PillarsSection = lazy(() => import('../components/PillarsSection').then(mo
 const ProductSection = lazy(() => import('../components/ProductSection').then(module => ({ default: module.ProductSection })));
 const ContactSection = lazy(() => import('../components/ContactSection').then(module => ({ default: module.ContactSection })));
 
-function GlobalLoader() {
-  const { progress } = useProgress();
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    // Hide the loader only when progress reaches 100%
-    if (progress === 100) {
-      const timer = setTimeout(() => setIsVisible(false), 800); // Small delay to let animations complete
-      return () => clearTimeout(timer);
-    }
-  }, [progress]);
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div 
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-          className="fixed inset-0 z-[999] pointer-events-none"
-        >
-          <div className="pointer-events-auto h-full w-full">
-            <LoadingScreen />
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
 
 export default function LandingPage() {
+  const [introFinished, setIntroFinished] = useState(false);
   const [headerTheme, setHeaderTheme] = useState('dark');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -57,50 +30,57 @@ export default function LandingPage() {
   useEffect(() => {
     document.title = "HOME | Simetra Solutions";
     
-    const handleScroll = () => {
-      const sections = [
-        { id: 'hero', theme: 'dark' },
-        { id: 'services', theme: 'dark' },
-        { id: 'about', theme: 'light' },
-        { id: 'pillars', theme: 'dark' },
-        { id: 'product', theme: 'light' },
-        { id: 'contact', theme: 'dark' }
-      ];
+    if (introFinished) {
+      const handleScroll = () => {
+        const sections = [
+          { id: 'hero', theme: 'dark' },
+          { id: 'services', theme: 'dark' },
+          { id: 'about', theme: 'light' },
+          { id: 'pillars', theme: 'dark' },
+          { id: 'product', theme: 'light' },
+          { id: 'contact', theme: 'dark' }
+        ];
 
-      let activeTheme = 'dark';
-      
-      // Find the last section that has reached the top of the viewport
-      sections.forEach(section => {
-        const el = document.getElementById(section.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          // If the section top is at or above the header line (top ~80px)
-          if (rect.top <= 100) {
-            activeTheme = section.theme;
+        let activeTheme = 'dark';
+        
+        sections.forEach(section => {
+          const el = document.getElementById(section.id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 100) {
+              activeTheme = section.theme;
+            }
           }
-        }
-      });
+        });
 
-      setHeaderTheme(activeTheme);
-    };
+        setHeaderTheme(activeTheme);
+      };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+      
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [introFinished]);
 
+  // Phase 1: Video Intro (Stand-alone to prevent lag)
+  if (!introFinished) {
+    return (
+      <div className="fixed inset-0 bg-black z-[1000]">
+        <LoadingScreen onFinished={() => setIntroFinished(true)} />
+      </div>
+    );
+  }
+
+  // Phase 2: Actual Website (Mounted only after video)
   return (
     <>
-      <GlobalLoader />
-      <Suspense fallback={<LoadingScreen />}>
+      <Suspense fallback={null}>
         <SmoothScroll>
         <div className="relative bg-brand-deep text-brand-arctic font-sans selection:bg-brand-teal selection:text-white transition-colors duration-700">
 
           {/* HUD LAYER: Fixed UI Elements */}
           <div className="viewport-border fixed z-50 pointer-events-none" />
-          
-
           
           {/* Navigation Layer */}
           <div className="fixed top-0 left-0 w-full z-[110] px-6 py-0 md:px-12 md:pt-1 pointer-events-none">
@@ -111,7 +91,6 @@ export default function LandingPage() {
 
           <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
           
-
           {/* SECTION 1: HERO (Sticky for overlap) */}
           <div id="hero" className="w-full h-px pointer-events-none" />
           <section 
@@ -128,15 +107,15 @@ export default function LandingPage() {
             {/* HERO FOREGROUND CONTENT */}
             <div className="relative z-20 w-full h-full flex flex-col px-6 py-4 md:px-12 md:pt-16 md:pb-8 max-w-[1920px] pointer-events-none">
                 <div className="w-full flex flex-col h-full justify-center">
-                  <main className="flex-1 w-full relative mt-16 md:mt-12 overflow-hidden lg:overflow-visible lg:grid lg:grid-cols-12 lg:items-center">
+                  <main className="flex-1 w-full relative mt-8 md:mt-12 overflow-hidden lg:overflow-visible lg:grid lg:grid-cols-12 lg:items-center">
                     
                     {/* Left Column: Heading */}
-                    <div className="pointer-events-auto absolute top-0 left-0 w-full lg:relative lg:w-auto lg:col-span-6">
+                    <div className="pointer-events-auto absolute top-[2vh] lg:top-0 left-0 w-full lg:relative lg:w-auto lg:col-span-6">
                       <Headline />
                     </div>
 
                     {/* Right Column: Interaction */}
-                    <div className="pointer-events-auto absolute top-[5vh] right-0 w-full flex flex-col items-end text-right lg:relative lg:top-[-18vh] lg:w-auto lg:col-span-6 lg:gap-10">
+                    <div className="pointer-events-auto absolute top-[55vh] lg:top-[-18vh] right-0 w-full flex flex-col items-end text-right lg:relative lg:w-auto lg:col-span-6 lg:gap-10">
                         <motion.div 
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}

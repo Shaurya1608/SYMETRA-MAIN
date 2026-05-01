@@ -88,7 +88,7 @@ export function Experience() {
             <Model 
               path="/videos/apple-vision-pro-opt.glb" 
               scale={isMobile ? 1.5 : 2.6} 
-              position={isMobile ? [0, -0.4, 0] : [0, -0.1, 0]} 
+              position={isMobile ? [0, -0.05, 0] : [0, -0.1, 0]} 
               rotation={[0, -Math.PI / 2, 0]} 
             />
           </Float>

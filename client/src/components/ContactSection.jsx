@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 
-import logo from '../assets/simmerta-logo/Simetra-Logo-01(1).png'
+import logo from '../assets/simmerta-logo/Simetra-Logo-02(1).png'
 
 export function ContactSection() {
   const form = useRef();
