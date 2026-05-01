@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useProgress } from '@react-three/drei';
 
+import logo from '../assets/simmerta-logo/Simetra-Logo-01(1).png'
+
 export const LoadingScreen = () => {
   const { progress } = useProgress();
   const roundedProgress = Math.round(progress);
@@ -23,7 +25,11 @@ export const LoadingScreen = () => {
         
         {/* Top HUD Frame */}
         <div className="w-full flex justify-between items-end border-b border-brand-teal/20 pb-2 mb-8">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-brand-teal font-bold">Simetra</span>
+          <img 
+            src={logo} 
+            alt="Simetra Logo" 
+            className="h-8 md:h-10 w-auto object-contain opacity-90"
+          />
           <span className="text-[9px] uppercase tracking-widest text-white/40">SYS / 01</span>
         </div>
 

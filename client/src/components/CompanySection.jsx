@@ -5,12 +5,12 @@ import productHero from '../assets/product_hero.png';
 export function CompanySection() {
   return (
     <section 
-      className="relative w-full bg-white pt-14 md:pt-24 pb-12 md:pb-16 px-6 md:px-12 lg:px-24 overflow-hidden"
+      className="relative w-full min-h-screen bg-white pt-20 pb-20 lg:pt-24 lg:pb-16 px-6 md:px-12 lg:px-24 overflow-hidden flex flex-col justify-center"
     >
-      {/* Background Decorative Grid - Dark lines for white background */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] flex justify-between px-[5%]">
+      {/* Background Decorative Pattern - Vertical Lines */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex justify-between px-[5%] lg:px-[10%]">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="h-full w-px bg-brand-deep" />
+          <div key={i} className="h-full w-[1px] bg-brand-deep/10" />
         ))}
       </div>
 
@@ -22,18 +22,18 @@ export function CompanySection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-12 md:mb-16 text-center"
+          className="mb-4 md:mb-8 text-center"
         >
-          <span className="text-[10px] font-archivo tracking-[0.6em] text-brand-steel/40 uppercase block mb-4">Identity</span>
+          <span className="text-[10px] tracking-[0.6em] text-brand-steel/40 uppercase block mb-4">Identity</span>
           <h2 
-            className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter text-brand-deep uppercase leading-none"
-            style={{ fontFamily: "'Antonio', sans-serif" }}
+            className="text-fluid-h2 font-bold tracking-tighter text-brand-deep uppercase leading-none"
+            style={{ fontFamily: 'var(--font-sitka)' }}
           >
             About Us
           </h2>
         </motion.div>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-16 items-start w-full">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center w-full -mt-2 lg:-mt-6">
           
           {/* Left Column: Product Image */}
           <motion.div 
@@ -41,13 +41,13 @@ export function CompanySection() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="lg:col-span-5 relative group flex justify-start w-full lg:justify-center"
+            className="w-full lg:w-2/5 relative group flex justify-center flex-shrink-0"
           >
-            <div className="absolute inset-0 bg-brand-deep/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl rounded-full max-w-[160px] lg:max-w-sm mx-auto" />
+            <div className="absolute inset-0 bg-brand-deep/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl rounded-full mx-auto" />
             <img 
               src={productHero} 
               alt="Simetra Technology" 
-              className="relative z-10 w-40 lg:w-full lg:max-w-sm h-auto rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] border border-brand-deep/5 transition-transform duration-700 group-hover:scale-[1.02]"
+              className="relative z-10 w-4/5 max-w-[320px] lg:w-full lg:max-w-md h-auto rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] border border-brand-deep/5 transition-transform duration-700 group-hover:scale-[1.02]"
             />
           </motion.div>
 
@@ -57,14 +57,14 @@ export function CompanySection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
             viewport={{ once: true }}
-            className="lg:col-span-7 lg:col-start-6 space-y-8 mt-4 lg:mt-0"
+            className="w-full lg:w-3/5"
           >
-            <div className="space-y-6 text-brand-steel font-archivo text-sm md:text-lg leading-relaxed text-center lg:text-left">
+            <div className="space-y-6 text-brand-steel font-poppins text-sm md:text-base leading-relaxed text-center lg:text-left">
               <p className="opacity-80">
-                Simetra Solutions is a technology-driven company focused on delivering innovative digital solutions for modern industries. Our work centers on creating scalable, reliable, and future-ready systems that support visualization, planning, and operational efficiency.
+                At Symetra, we create next-generation training experiences using Virtual Reality, Mobile Simulations, and Interactive Learning Technologies. Our solutions allow trainees to practice real-world scenarios in a safe, scalable, and repeatable virtual environment — improving confidence, retention, and operational readiness.
               </p>
               <p className="opacity-80">
-                With a strong emphasis on quality, precision, and adaptability, our team partners with organizations to address complex challenges through structured and intelligent technology platforms. Our approach combines industry insight with practical design to ensure long-term value.
+                We build immersive VR, mobile, and simulation-based training solutions that help organizations improve workforce performance while reducing real-world risks, training costs, and onboarding time.
               </p>
             </div>
           </motion.div>

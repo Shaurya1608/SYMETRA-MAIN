@@ -1,9 +1,45 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
+
+import logo from '../assets/simmerta-logo/Simetra-Logo-01(1).png'
 
 export function ContactSection() {
+  const form = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    // NOTE: Please replace 'YOUR_TEMPLATE_ID_HERE' with your actual EmailJS Template ID
+    emailjs.sendForm(
+      'service_9g5p01g', 
+      'template_g8d055p', 
+      form.current, 
+      '8k1jN7RaR7Pfp4bvl'
+    )
+    .then((result) => {
+        setSubmitMessage('Message sent successfully!');
+        setIsSubmitting(false);
+        form.current.reset();
+    }, (error) => {
+        console.error(error.text);
+        setSubmitMessage('Failed to send message. Please try again.');
+        setIsSubmitting(false);
+    });
+  };
   return (
     <section className="relative w-full h-screen bg-brand-deep px-6 lg:px-24 overflow-hidden flex flex-col justify-center">
+      {/* Background Decorative Pattern - Vertical Lines */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex justify-between px-[5%] lg:px-[10%]">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-full w-[1px] bg-white/10" />
+        ))}
+      </div>
+
       {/* Background Decorative Element */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/[0.02] -skew-x-12 translate-x-1/3 pointer-events-none" />
       
@@ -25,12 +61,14 @@ export function ContactSection() {
               </h2>
             </div>
 
-            <form className="space-y-4">
+            <form ref={form} onSubmit={sendEmail} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-[8px] font-orbitron tracking-widest text-brand-arctic/30 uppercase">Full Name</label>
                   <input 
                     type="text" 
+                    name="user_name"
+                    required
                     placeholder="John Doe" 
                     className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-brand-arctic focus:outline-none focus:border-brand-teal/50 transition-colors"
                   />
@@ -39,7 +77,18 @@ export function ContactSection() {
                   <label className="text-[8px] font-orbitron tracking-widest text-brand-arctic/30 uppercase">Email</label>
                   <input 
                     type="email" 
+                    name="user_email"
+                    required
                     placeholder="john@company.com" 
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-brand-arctic focus:outline-none focus:border-brand-teal/50 transition-colors"
+                  />
+                </div>
+                <div className="space-y-1.5 md:col-span-2">
+                  <label className="text-[8px] font-orbitron tracking-widest text-brand-arctic/30 uppercase">Phone No.</label>
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    placeholder="+1 (555) 000-0000" 
                     className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-brand-arctic focus:outline-none focus:border-brand-teal/50 transition-colors"
                   />
                 </div>
@@ -47,14 +96,25 @@ export function ContactSection() {
               <div className="space-y-1.5">
                 <label className="text-[8px] font-orbitron tracking-widest text-brand-arctic/30 uppercase">Message</label>
                 <textarea 
+                  name="message"
+                  required
                   rows="3" 
                   placeholder="How can we help?" 
                   className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-brand-arctic focus:outline-none focus:border-brand-teal/50 transition-colors resize-none"
                 ></textarea>
               </div>
-              <button className="w-full md:w-auto px-8 py-3 bg-brand-teal text-brand-arctic font-orbitron text-[9px] tracking-[0.4em] uppercase rounded-xl hover:bg-brand-signal transition-all duration-500 shadow-xl shadow-brand-teal/10">
-                Send Message
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className={`w-full md:w-auto px-8 py-3 bg-brand-teal text-brand-arctic font-orbitron text-[9px] tracking-[0.4em] uppercase rounded-xl hover:bg-brand-signal transition-all duration-500 shadow-xl shadow-brand-teal/10 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
+              {submitMessage && (
+                <p className={`text-xs font-archivo mt-2 ${submitMessage.includes('Failed') ? 'text-red-400' : 'text-green-400'}`}>
+                  {submitMessage}
+                </p>
+              )}
             </form>
           </motion.div>
 
@@ -103,8 +163,11 @@ export function ContactSection() {
         {/* Footer - Positioned comfortably within 100vh */}
         <div className="mt-16 md:mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
-             <div className="w-5 h-5 bg-brand-teal rounded-sm" />
-             <span className="font-orbitron text-[9px] tracking-[0.2em] text-brand-arctic">SIMETRA</span>
+             <img 
+               src={logo} 
+               alt="Simetra Logo" 
+               className="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
+             />
           </div>
           <p className="text-brand-arctic/20 font-archivo text-[8px] uppercase tracking-[0.2em] text-center">
             © 2026 Simetra SOLUTIONS. ALL RIGHTS RESERVED.

@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion'
+import logo from '../assets/simmerta-logo/Simetra-Logo-01(1).png'
+
 export function Header({ theme = 'light', isOpen, toggleMenu }) {
   const isDark = theme === 'dark' && !isOpen; // Force dark (black icon) when menu is open on white bg
   const colorClass = isDark ? 'text-brand-arctic' : 'text-black';
@@ -11,17 +14,43 @@ export function Header({ theme = 'light', isOpen, toggleMenu }) {
     }
   };
 
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      if (window.lenis) {
+        window.lenis.scrollTo(element, { offset: 0, duration: 1.5 });
+      } else {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <header className="relative z-[110] w-full flex items-start justify-between max-w-[1920px]">
+    <header className="relative z-[110] w-full flex items-center justify-between max-w-[1920px] -mt-2 md:-mt-4">
+      {/* Logo */}
       <div className="flex items-center gap-2 cursor-pointer" onClick={scrollToTop}>
-        <div className={`w-8 h-8 flex flex-col justify-between p-1 rounded-sm shadow-xl transition-colors duration-500 ${isDark ? 'bg-brand-arctic' : 'bg-brand-deep'}`}>
-          <div className={`h-[2px] w-full transition-colors duration-500 ${isDark ? 'bg-brand-deep opacity-50' : 'bg-brand-arctic opacity-50'}`} />
-          <div className={`h-[2px] w-full transition-colors duration-500 ${isDark ? 'bg-brand-deep' : 'bg-brand-arctic'}`} />
-          <div className={`h-[2px] w-full transition-colors duration-500 ${isDark ? 'bg-brand-deep opacity-50' : 'bg-brand-arctic opacity-50'}`} />
-        </div>
-        <span className={`font-orbitron text-sm tracking-[0.2em] uppercase transition-colors duration-500 ${colorClass}`}>SIMETRA</span>
+        <img 
+          src={logo} 
+          alt="Simetra Logo" 
+          className="h-20 md:h-28 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
+        />
       </div>
+
+      {/* Desktop Navigation Links */}
+      <motion.nav 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1 }}
+        className={`hidden lg:flex items-center gap-14 font-bold text-[11px] uppercase tracking-[0.4em] ${colorClass} absolute left-1/2 -translate-x-1/2`}
+      >
+          <div onClick={scrollToTop} className="cursor-pointer hover:text-brand-teal transition-all opacity-100 underline decoration-brand-teal underline-offset-8 decoration-2">Home</div>
+          <div onClick={() => scrollToSection('about')} className="cursor-pointer hover:text-brand-teal transition-all opacity-70 hover:opacity-100">About</div>
+          <div onClick={() => scrollToSection('services')} className="cursor-pointer hover:text-brand-teal transition-all opacity-70 hover:opacity-100">Services</div>
+          <div onClick={() => scrollToSection('product')} className="cursor-pointer hover:text-brand-teal transition-all opacity-70 hover:opacity-100">Products</div>
+          <div onClick={() => scrollToSection('contact')} className="cursor-pointer hover:text-brand-teal transition-all opacity-70 hover:opacity-100">Contact</div>
+      </motion.nav>
       
+      {/* Menu Toggle */}
       <div 
         onClick={toggleMenu}
         className="flex flex-col items-end gap-1.5 cursor-pointer group relative w-10 h-6"

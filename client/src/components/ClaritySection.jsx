@@ -5,10 +5,10 @@ export function ClaritySection() {
   return (
     <section className="relative bg-brand-deep w-full h-[100dvh] md:h-auto pt-14 md:pt-24 pb-14 overflow-hidden shadow-[0_-50px_100px_rgba(0,0,0,0.5)]">
 
-      {/* SHARED BACKGROUND GRID (Decorative static) */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-5 flex justify-between px-[2%]">
-        {[...Array(12)].map((_, i) => (
-          <div key={i} className="h-full w-px bg-white" />
+      {/* Background Decorative Pattern - Vertical Lines */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex justify-between px-[5%] lg:px-[10%]">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-full w-[1px] bg-white/10" />
         ))}
       </div>
 
@@ -24,7 +24,7 @@ export function ClaritySection() {
         >
           <span className="text-[10px] md:text-xs font-archivo tracking-[0.6em] text-white/40 uppercase mb-4">The Result</span>
           <h2 className="text-5xl md:text-5xl lg:text-7xl font-anton tracking-tighter text-white uppercase leading-none text-center px-4">
-            OUR SERVICES
+            OUR SOLUTIONS
           </h2>
         </motion.div>
 
@@ -39,10 +39,10 @@ export function ClaritySection() {
             className="flex-shrink-0 w-[92vw] md:w-full snap-center bg-brand-blue border border-white/5 p-10 md:p-10 space-y-6 shadow-2xl flex flex-col justify-between"
           >
              <div>
-               <span className="text-sm font-orbitron text-brand-teal tracking-[0.4em] block uppercase mb-6">01 / Safety</span>
-               <h3 className="text-3xl md:text-3xl lg:text-4xl font-anton text-white uppercase leading-[1.0] mb-2">VR Safety<br/>Simulation</h3>
+               <span className="text-sm font-orbitron text-brand-teal tracking-[0.4em] block uppercase mb-6">01 / Immersive</span>
+               <h3 className="text-3xl md:text-3xl lg:text-4xl font-anton text-white uppercase leading-[1.0] mb-2">VR TRAINING<br/>SIMULATIONS</h3>
              </div>
-             <p className="text-xs md:text-base font-archivo text-white/50 leading-relaxed font-medium">Immersive virtual environments for advanced visualization of complex scenarios prior to real-world execution. These solutions support improved understanding, structured decision-making, and enhanced operational preparedness.</p>
+             <p className="text-xs md:text-base font-archivo text-white/50 leading-relaxed font-medium">Highly immersive virtual environments designed for realistic hands-on training. Supports risk-free learning, better retention, repeatable scenarios, and realistic real-world experience.</p>
           </motion.div>
 
           {/* Card 2 */}
@@ -55,9 +55,9 @@ export function ClaritySection() {
           >
              <div>
                <span className="text-sm font-orbitron text-brand-teal tracking-[0.4em] block uppercase mb-6">02 / Accessibility</span>
-               <h3 className="text-3xl md:text-3xl lg:text-4xl font-anton text-brand-deep uppercase leading-[1.0] mb-2">Mobile-Based<br/>Simulation</h3>
+               <h3 className="text-3xl md:text-3xl lg:text-4xl font-anton text-brand-deep uppercase leading-[1.0] mb-2">MOBILE-BASED<br/>TRAINING</h3>
              </div>
-             <p className="text-xs md:text-base font-archivo text-brand-steel leading-relaxed font-medium">Mobile-accessible simulation environments designed for flexibility and wide accessibility. These platforms support consistent engagement with workflows, scenarios, and operational models across devices.</p>
+             <p className="text-xs md:text-base font-archivo text-brand-steel leading-relaxed font-medium">Interactive mobile simulations accessible anytime, anywhere. Features easy deployment, remote accessibility, cost-effective training, and scalable workforce training options.</p>
           </motion.div>
 
           {/* Card 3 */}
@@ -69,10 +69,10 @@ export function ClaritySection() {
             className="flex-shrink-0 w-[92vw] md:w-full snap-center bg-brand-blue border border-white/5 p-10 md:p-10 space-y-6 shadow-2xl flex flex-col justify-between"
           >
              <div>
-               <span className="text-sm font-orbitron text-brand-teal tracking-[0.4em] block uppercase mb-6">03 / Customization</span>
-               <h3 className="text-3xl md:text-3xl lg:text-4xl font-anton text-white uppercase leading-[1.0] mb-2">Custom Software<br/>Solutions</h3>
+               <span className="text-sm font-orbitron text-brand-teal tracking-[0.4em] block uppercase mb-6">03 / Interaction</span>
+               <h3 className="text-3xl md:text-3xl lg:text-4xl font-anton text-white uppercase leading-[1.0] mb-2">MIXED REALITY<br/>EXPERIENCES</h3>
              </div>
-             <p className="text-xs md:text-base font-archivo text-white/50 leading-relaxed font-medium">Intelligent configuration and planning systems focused on structured project setup, customization, and strategic alignment. These tools support streamlined workflows and resource planning.</p>
+             <p className="text-xs md:text-base font-archivo text-white/50 leading-relaxed font-medium">Blend physical interaction with digital simulations for advanced training. Ideal for equipment handling, maintenance training, safety procedures, and technical skill development.</p>
           </motion.div>
         </div>
 

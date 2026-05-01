@@ -3,23 +3,23 @@ import { motion } from 'framer-motion';
 
 const pillars = [
   {
-    title: "Risk-Free",
-    subtitle: "Training Environments",
+    title: "Immersive &",
+    subtitle: "Interactive Learning",
     id: "01"
   },
   {
-    title: "Repeatable",
-    subtitle: "Learning Frameworks",
+    title: "Safer",
+    subtitle: "Training Environment",
     id: "02"
   },
   {
-    title: "Standardized",
-    subtitle: "Training Quality",
+    title: "Scalable &",
+    subtitle: "Repeatable Solutions",
     id: "03"
   },
   {
-    title: "Scalable",
-    subtitle: "Training Platforms",
+    title: "Faster",
+    subtitle: "Employee Readiness",
     id: "04"
   }
 ];
@@ -48,10 +48,10 @@ export function PillarsSection() {
 
   return (
     <section className="relative w-full h-screen bg-brand-deep px-6 overflow-hidden flex flex-col justify-center">
-      {/* Background Decorative Pattern */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.05] flex justify-between px-[10%]">
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="h-full w-px bg-white/20" />
+      {/* Background Decorative Pattern - Vertical Lines */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex justify-between px-[5%] lg:px-[10%]">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-full w-[1px] bg-white/10" />
         ))}
       </div>
 
@@ -65,8 +65,8 @@ export function PillarsSection() {
             viewport={{ once: true }}
             className="text-center mb-8 md:mb-12"
         >
-            <span className="text-[10px] font-archivo tracking-[0.8em] text-white/30 uppercase block mb-2">Foundation</span>
-            <h2 className="text-2xl md:text-3xl font-anton text-white uppercase tracking-tighter">Strategic Pillars</h2>
+            <span className="text-[10px] font-archivo tracking-[0.8em] text-white/30 uppercase block mb-2">Why Choose Us</span>
+            <h2 className="text-2xl md:text-3xl font-anton text-white uppercase tracking-tighter">WHY CHOOSE SYMETRA?</h2>
         </motion.div>
 
         {/* 2x2 Grid Layout */}

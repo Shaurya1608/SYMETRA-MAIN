@@ -1,45 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import product0 from '../assets/products/vastech-product-0.avif';
-import product1 from '../assets/products/vasttecproduct 1.avif';
-import product2 from '../assets/products/vastech-product-2.avif';
-import product3 from '../assets/products/vastechh-product-3.avif';
+import { productList as products } from '../data/products';
 
-const products = [
-  {
-    id: "01",
-    name: "Sentinel X-1",
-    tagline: "Flagship Tactical Framework",
-    desc: "A hardware-agnostic framework designed for high-fidelity safety simulations.",
-    image: product0,
-    features: ["<20ms Latency", "Spatial Tracking"]
-  },
-  {
-    id: "02",
-    name: "Neural Link",
-    tagline: "Software Intelligence Engine",
-    desc: "Orchestrates complex multi-user simulations with real-time feedback loops.",
-    image: product1,
-    features: ["Multi-user Sync", "Cloud Processing"]
-  },
-  {
-    id: "03",
-    name: "V-Field Kit",
-    tagline: "Rapid Deployment Unit",
-    desc: "A portable, ruggedized VR solution for on-site training in any environment.",
-    image: product2,
-    features: ["Rugged Design", "Battery Powered"]
-  },
-  {
-    id: "04",
-    name: "Command Center",
-    tagline: "Centralized Ops Platform",
-    desc: "Monitor trainees, manage libraries, and generate compliance reports.",
-    image: product3,
-    features: ["Fleet Management", "Auto-Reporting"]
-  }
-];
+function ImageCarousel({ images, altText }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images]);
+
+  if (!images || images.length === 0) return null;
+
+  return (
+    <div className="relative w-full h-full overflow-hidden">
+      {images.map((img, index) => (
+        <img
+          key={index}
+          src={img}
+          alt={`${altText} - ${index + 1}`}
+          className={`absolute top-0 left-0 w-full h-full object-cover transform-gpu will-change-transform group-hover:scale-110 transition-all duration-1000 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
+        />
+      ))}
+      {images.length > 1 && (
+        <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">
+          {images.map((_, index) => (
+             <div key={index} className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${index === currentIndex ? 'bg-white' : 'bg-white/40'}`} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function ProductSection() {
   const containerVariants = {
@@ -63,8 +59,15 @@ export function ProductSection() {
   };
 
   return (
-    <section className="relative w-full h-screen bg-brand-arctic pt-16 md:pt-32 pb-12 md:pb-16 px-6 lg:px-24 overflow-hidden flex flex-col items-center justify-start">
+    <section className="relative w-full h-[100dvh] bg-brand-arctic pt-16 md:pt-20 pb-8 md:pb-12 px-6 lg:px-24 overflow-hidden flex flex-col items-center justify-center">
       
+      {/* Background Decorative Pattern - Vertical Lines */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex justify-between px-[5%] lg:px-[10%]">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-full w-[1px] bg-brand-deep/10" />
+        ))}
+      </div>
+
       {/* Background Brand Watermark */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
           <h2 className="text-[6rem] md:text-[12rem] font-anton text-brand-deep/[0.02] leading-none uppercase tracking-tighter select-none">
@@ -80,7 +83,7 @@ export function ProductSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-6 md:mb-16"
+            className="text-center mb-6 md:mb-10"
         >
             <span className="text-[8px] md:text-[9px] font-archivo tracking-[0.8em] text-brand-teal uppercase block mb-2">Our Technology</span>
             <h2 className="text-3xl md:text-5xl font-anton text-brand-deep uppercase tracking-tighter leading-none">
@@ -108,12 +111,8 @@ export function ProductSection() {
                 className="group w-full h-full bg-white p-3 md:p-5 rounded-xl md:rounded-2xl border border-brand-teal/[0.03] shadow-[0_10px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.06)] transition-shadow duration-700 flex flex-col lg:flex-row gap-4 lg:gap-6 items-center lg:items-start"
               >
                 {/* Image Aspect */}
-                <div className="w-full lg:w-[35%] aspect-square md:aspect-video overflow-hidden rounded-lg md:rounded-xl flex-shrink-0">
-                  <img 
-                      src={product.image} 
-                      alt={product.name} 
-                      className="w-full h-full object-cover transform-gpu will-change-transform group-hover:scale-110 transition-transform duration-1000"
-                  />
+                <div className="w-full lg:w-[35%] aspect-square md:aspect-video overflow-hidden rounded-lg md:rounded-xl flex-shrink-0 relative">
+                  <ImageCarousel images={product.images} altText={product.name} />
                 </div>
 
                 {/* Text Aspect */}
@@ -156,6 +155,28 @@ export function ProductSection() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* View All Button */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-6 md:mt-10 flex justify-center w-full"
+        >
+          <Link 
+            to="/products"
+            className="group flex items-center justify-center gap-4 bg-brand-deep text-white px-8 md:px-12 py-4 md:py-5 rounded-full hover:bg-brand-teal transition-all duration-300 shadow-xl hover:shadow-[0_10px_30px_rgba(20,184,166,0.3)] hover:-translate-y-1"
+          >
+            <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase font-poppins">Explore Full Lineup</span>
+            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-brand-teal transition-colors">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transform group-hover:translate-x-1 transition-transform">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </Link>
+        </motion.div>
+
       </div>
     </section>
   );

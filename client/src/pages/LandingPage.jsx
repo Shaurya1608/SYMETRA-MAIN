@@ -4,13 +4,13 @@ import { useProgress } from '@react-three/drei'
 
 import { Header } from '../components/Header'
 import { Headline } from '../components/Headline'
-import { Sidebar } from '../components/Sidebar'
-import { Navigation } from '../components/Navigation'
+
 import { BackgroundWatermark } from '../components/BackgroundWatermark'
 import { MenuOverlay } from '../components/MenuOverlay'
 import { SmoothScroll } from '../components/SmoothScroll'
 import { LoadingScreen } from '../components/LoadingScreen'
 import { Experience } from '../components/Experience'
+import { BackgroundTexture } from '../components/BackgroundTexture'
 
 // Lazy loaded components for bundle optimization
 const ClaritySection = lazy(() => import('../components/ClaritySection').then(module => ({ default: module.ClaritySection })));
@@ -100,8 +100,10 @@ export default function LandingPage() {
           {/* HUD LAYER: Fixed UI Elements */}
           <div className="viewport-border fixed z-50 pointer-events-none" />
           
+
+          
           {/* Navigation Layer */}
-          <div className="fixed top-0 left-0 w-full z-[110] px-6 py-4 md:px-12 md:pt-6 pointer-events-none">
+          <div className="fixed top-0 left-0 w-full z-[110] px-6 py-0 md:px-12 md:pt-1 pointer-events-none">
               <div className="pointer-events-auto max-w-[1920px] mx-auto">
                 <Header theme={headerTheme} isOpen={isMenuOpen} toggleMenu={toggleMenu} />
               </div>
@@ -120,6 +122,7 @@ export default function LandingPage() {
             <Experience />
 
             {/* Background Decorative Elements */}
+            <BackgroundTexture />
             <BackgroundWatermark />
 
             {/* HERO FOREGROUND CONTENT */}
@@ -132,11 +135,8 @@ export default function LandingPage() {
                       <Headline />
                     </div>
 
-                    {/* Right Column: Interaction & Navigation */}
-                    <div className="pointer-events-auto absolute top-[26vh] right-0 w-full flex flex-col items-end text-right lg:relative lg:top-auto lg:w-auto lg:col-span-6 lg:gap-12">
-                        <Sidebar />
-                        <Navigation />
-                        
+                    {/* Right Column: Interaction */}
+                    <div className="pointer-events-auto absolute top-[5vh] right-0 w-full flex flex-col items-end text-right lg:relative lg:top-[-18vh] lg:w-auto lg:col-span-6 lg:gap-10">
                         <motion.div 
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
