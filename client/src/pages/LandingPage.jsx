@@ -23,6 +23,7 @@ const ContactSection = lazy(() => import('../components/ContactSection').then(mo
 export default function LandingPage() {
   const [introFinished, setIntroFinished] = useState(false);
   const [headerTheme, setHeaderTheme] = useState('dark');
+  const [activeSection, setActiveSection] = useState('hero');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -42,6 +43,7 @@ export default function LandingPage() {
         ];
 
         let activeTheme = 'dark';
+        let currentSection = 'hero';
         
         sections.forEach(section => {
           const el = document.getElementById(section.id);
@@ -49,11 +51,13 @@ export default function LandingPage() {
             const rect = el.getBoundingClientRect();
             if (rect.top <= 100) {
               activeTheme = section.theme;
+              currentSection = section.id;
             }
           }
         });
 
         setHeaderTheme(activeTheme);
+        setActiveSection(currentSection);
       };
 
       window.addEventListener('scroll', handleScroll, { passive: true });
@@ -94,11 +98,14 @@ export default function LandingPage() {
           {/* SECTION 1: HERO (Sticky for overlap) */}
           <div id="hero" className="w-full h-px pointer-events-none" />
           <section 
-            className="relative h-screen w-full sticky top-0 z-10 overflow-hidden flex flex-col items-center justify-center"
-            style={{ background: 'radial-gradient(circle at 50% 40%, #1E3A5F 0%, #0B1120 70%, #0B1120 100%)' }}
+            className={`relative h-screen w-full sticky top-0 z-10 overflow-hidden flex flex-col items-center justify-center transition-opacity duration-500 ${activeSection !== 'hero' && activeSection !== 'services' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            style={{ 
+              background: 'radial-gradient(circle at 50% 40%, #1E3A5F 0%, #0B1120 70%, #0B1120 100%)',
+              visibility: activeSection !== 'hero' && activeSection !== 'services' ? 'hidden' : 'visible'
+            }}
           >
             {/* 3D Experience Background Layer */}
-            <Experience />
+            {activeSection === 'hero' || activeSection === 'services' ? <Experience /> : null}
 
             {/* Background Decorative Elements */}
             <BackgroundTexture />
@@ -134,25 +141,37 @@ export default function LandingPage() {
 
           {/* SECTION 2: SERVICES */}
           <div id="services" className="w-full h-px pointer-events-none" />
-          <div className="sticky top-0 z-20 w-full">
+          <div 
+            className={`sticky top-0 z-20 w-full transition-opacity duration-500 ${activeSection !== 'services' && activeSection !== 'about' && activeSection !== 'hero' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            style={{ visibility: activeSection !== 'services' && activeSection !== 'about' && activeSection !== 'hero' ? 'hidden' : 'visible' }}
+          >
              <ClaritySection />
           </div>
 
           {/* SECTION 3: COMPANY IDENTITY */}
           <div id="about" className="w-full h-px pointer-events-none" />
-          <div className="sticky top-0 z-30 w-full">
+          <div 
+            className={`sticky top-0 z-30 w-full transition-opacity duration-500 ${activeSection !== 'about' && activeSection !== 'pillars' && activeSection !== 'services' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            style={{ visibility: activeSection !== 'about' && activeSection !== 'pillars' && activeSection !== 'services' ? 'hidden' : 'visible' }}
+          >
             <CompanySection />
           </div>
 
           {/* SECTION 4: STRATEGIC PILLARS */}
           <div id="pillars" className="w-full h-px pointer-events-none" />
-          <div className="sticky top-0 z-40 w-full overflow-hidden">
+          <div 
+            className={`sticky top-0 z-40 w-full overflow-hidden transition-opacity duration-500 ${activeSection !== 'pillars' && activeSection !== 'product' && activeSection !== 'about' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            style={{ visibility: activeSection !== 'pillars' && activeSection !== 'product' && activeSection !== 'about' ? 'hidden' : 'visible' }}
+          >
              <PillarsSection />
           </div>
 
           {/* SECTION 5: PRODUCT SHOWCASE */}
           <div id="product" className="w-full h-px pointer-events-none" />
-          <div className="sticky top-0 z-50 w-full">
+          <div 
+            className={`sticky top-0 z-50 w-full transition-opacity duration-500 ${activeSection !== 'product' && activeSection !== 'contact' && activeSection !== 'pillars' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            style={{ visibility: activeSection !== 'product' && activeSection !== 'contact' && activeSection !== 'pillars' ? 'hidden' : 'visible' }}
+          >
             <ProductSection />
           </div>
 

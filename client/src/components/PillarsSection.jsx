@@ -81,7 +81,7 @@ export function PillarsSection() {
             <motion.div 
               key={pillar.id}
               variants={itemVariants}
-              className="group relative bg-brand-deep p-8 md:p-10 lg:p-12 flex flex-col items-center text-center overflow-hidden transition-all duration-500"
+              className="group relative bg-brand-deep p-8 md:p-10 lg:p-12 flex flex-col items-center text-center overflow-hidden transform-gpu"
             >
               {/* Subtle hover effect background */}
               <div className="absolute inset-0 bg-brand-teal/[0.05] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />

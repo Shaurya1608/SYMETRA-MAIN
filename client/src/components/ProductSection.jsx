@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { productList as products } from '../data/products';
 
 function ImageCarousel({ images, altText }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { amount: 0.1 });
+
   useEffect(() => {
-    if (!images || images.length <= 1) return;
+    if (!images || images.length <= 1 || !isInView) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [images]);
+  }, [images, isInView]);
 
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div ref={containerRef} className="relative w-full h-full overflow-hidden">
       {images.map((img, index) => (
         <img
           key={index}

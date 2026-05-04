@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import productHero from '../assets/product_hero.png';
+import aboutImage from '../Content/MobileSimulation Thumbnail.png';
 
 export function CompanySection() {
   return (
@@ -45,7 +45,7 @@ export function CompanySection() {
           >
             <div className="absolute inset-0 bg-brand-deep/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl rounded-full mx-auto" />
             <img 
-              src={productHero} 
+              src={aboutImage} 
               alt="Simetra Technology" 
               className="relative z-10 w-4/5 max-w-[320px] lg:w-full lg:max-w-md h-auto rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] border border-brand-deep/5 transition-transform duration-700 group-hover:scale-[1.02]"
             />
