@@ -14,12 +14,11 @@ export function ContactSection() {
     setIsSubmitting(true);
     setSubmitMessage('');
 
-    // NOTE: Please replace 'YOUR_TEMPLATE_ID_HERE' with your actual EmailJS Template ID
     emailjs.sendForm(
-      'service_9g5p01g', 
-      'template_g8d055p', 
+      import.meta.env.VITE_EMAILJS_SERVICE_ID, 
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID, 
       form.current, 
-      '8k1jN7RaR7Pfp4bvl'
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
     )
     .then((result) => {
         setSubmitMessage('Message sent successfully!');

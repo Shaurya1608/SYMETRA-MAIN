@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useProgress } from '@react-three/drei'
+import { motion } from 'framer-motion'
 
 import { Header } from '../components/Header'
 import { Headline } from '../components/Headline'
@@ -8,7 +7,6 @@ import { Headline } from '../components/Headline'
 import { BackgroundWatermark } from '../components/BackgroundWatermark'
 import { MenuOverlay } from '../components/MenuOverlay'
 import { SmoothScroll } from '../components/SmoothScroll'
-import { LoadingScreen } from '../components/LoadingScreen'
 import { Experience } from '../components/Experience'
 import { BackgroundTexture } from '../components/BackgroundTexture'
 
@@ -21,7 +19,6 @@ const ContactSection = lazy(() => import('../components/ContactSection').then(mo
 
 
 export default function LandingPage() {
-  const [introFinished, setIntroFinished] = useState(false);
   const [headerTheme, setHeaderTheme] = useState('dark');
   const [activeSection, setActiveSection] = useState('hero');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,53 +27,41 @@ export default function LandingPage() {
 
   useEffect(() => {
     document.title = "HOME | Simetra Solutions";
-    
-    if (introFinished) {
-      const handleScroll = () => {
-        const sections = [
-          { id: 'hero', theme: 'dark' },
-          { id: 'services', theme: 'dark' },
-          { id: 'about', theme: 'light' },
-          { id: 'pillars', theme: 'dark' },
-          { id: 'product', theme: 'light' },
-          { id: 'contact', theme: 'dark' }
-        ];
 
-        let activeTheme = 'dark';
-        let currentSection = 'hero';
-        
-        sections.forEach(section => {
-          const el = document.getElementById(section.id);
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            if (rect.top <= 100) {
-              activeTheme = section.theme;
-              currentSection = section.id;
-            }
-          }
-        });
+    const handleScroll = () => {
+      const sections = [
+        { id: 'hero', theme: 'dark' },
+        { id: 'services', theme: 'dark' },
+        { id: 'about', theme: 'light' },
+        { id: 'pillars', theme: 'dark' },
+        { id: 'product', theme: 'light' },
+        { id: 'contact', theme: 'dark' }
+      ];
 
-        setHeaderTheme(activeTheme);
-        setActiveSection(currentSection);
-      };
-
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      handleScroll();
+      let activeTheme = 'dark';
+      let currentSection = 'hero';
       
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
-  }, [introFinished]);
+      sections.forEach(section => {
+        const el = document.getElementById(section.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 100) {
+            activeTheme = section.theme;
+            currentSection = section.id;
+          }
+        }
+      });
 
-  // Phase 1: Video Intro (Stand-alone to prevent lag)
-  if (!introFinished) {
-    return (
-      <div className="fixed inset-0 bg-black z-[1000]">
-        <LoadingScreen onFinished={() => setIntroFinished(true)} />
-      </div>
-    );
-  }
+      setHeaderTheme(activeTheme);
+      setActiveSection(currentSection);
+    };
 
-  // Phase 2: Actual Website (Mounted only after video)
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <Suspense fallback={null}>
